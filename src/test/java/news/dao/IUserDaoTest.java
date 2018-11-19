@@ -16,9 +16,18 @@ public class IUserDaoTest {
     private IUserDao dao;
 
     @Test
-    public void testSelectUserById() throws Exception{
+    public void testSelectUserById(){
         long id = 1;
         User user = dao.selectUserById(id);
         System.out.println(user.getUserName());
+        System.out.println(user.getPwd());
+    }
+
+    @Test
+    public  void selectUserName(){
+        String username = "1501020415";
+        User user = dao.selectUserByUserName(username);
+        System.out.println(user.getNickName());
+        System.out.println(user.getPwd());
     }
 }

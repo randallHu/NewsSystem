@@ -4,10 +4,22 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="news.dao.IUserDao">
 
-    <select id="selectUserById" resultType="news.model.User" parameterType="long">
-    select id,username
-    from user
-    where id = #{id}
+    <resultMap id="userMap" type="news.model.User">
+            <id property="id" column="id"/>
+            <result property="userName" column="username"/>
+            <result property="pwd" column="password"/>
+            <result property="nickName" column="nickname"/>
+            <result property="email" column="email"/>
+    </resultMap>
+
+    <select id="selectUserById" resultMap="userMap" >
+        select * from user where ID = #{id}
+    </select>
+
+    <select id="selectUserByUserName" resultMap="userMap" >
+        select *
+        FROM user
+        where username = #{username}
     </select>
 
 </mapper>
