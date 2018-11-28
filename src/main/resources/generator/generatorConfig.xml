@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySqlContext" defaultModelType="flat">
+        <!--前后分隔符 mybatis -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!--注释生成器 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/news?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="865584">
+        </jdbcConnection>
+
+        <!-- 生成的包名 及 目的报名-->
+        <javaModelGenerator targetPackage="test.model"
+                            targetProject="src/main/java">
+        </javaModelGenerator>
+
+        <!--生成Mapper.xml位置-->
+        <sqlMapGenerator targetPackage="test.xml"
+                         targetProject="src/main/java">
+        </sqlMapGenerator>
+
+        <!--生成mapper接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao" targetProject="src/main/java"/>
+
+        <!--匹配所有表 且皆有主键自增的id字段-->
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+    </context>
+</generatorConfiguration>

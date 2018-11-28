@@ -1,13 +1,13 @@
 package news.model;
 
 public class User {
-    private long id;
+    private Long id;
     private String userName;
     private String nickName;
     private String email;
     private String pwd;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

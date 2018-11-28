@@ -13,12 +13,17 @@ public class UserServiceImpl implements IUserService {
     private IUserDao userDao;
 
     @Override
-    public User selectUserById(long id) {
+    public User selectUserById(Long id) {
             return this.userDao.selectUserById(id);
     }
 
     @Override
     public User selectUserByUserName(String userName){
         return this.userDao.selectUserByUserName(userName);
+    }
+
+    @Override
+    public void addUser(User user) {
+        userDao.addUser(user);
     }
 }

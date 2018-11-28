@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import news.model.User;
 import news.service.IUserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -39,11 +40,15 @@ public class UserController {
         }
 
 
-    @RequestMapping(value = "/login" ,method = RequestMethod.POST)
-    public String login(@RequestParam("userName") String userName, @RequestParam("pwd") String pwd) {
+    @PostMapping(value = "/login")
+    public String login(@RequestParam("userName") String userName, @RequestParam("pwd") String pwd, Model model) {
         User user = this.userService.selectUserByUserName(userName);
-        if(user.getPwd().equals(pwd))
-        return "test";
-        return "login";
+        if(user.getPwd().equals(pwd)){
+            return "redirect:/index";
+        }
+        else {
+           model.addAttribute("msg","账号或密码错误");
+            return "login";
+        }
     }
     }

@@ -25,9 +25,18 @@ public class IUserDaoTest {
 
     @Test
     public  void selectUserName(){
-        String username = "1501020415";
+        String username = "123456";
         User user = dao.selectUserByUserName(username);
         System.out.println(user.getNickName());
         System.out.println(user.getPwd());
     }
+
+    @Test
+    public void  addUser(){
+        User user = new User();
+        user.setUserName("123456");
+        user.setPwd("123456");
+        dao.addUser(user);
+    }
+
 }

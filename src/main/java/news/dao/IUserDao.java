@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IUserDao {
-    User selectUserById(long id);
+    User selectUserById(Long id);
+
     User selectUserByUserName(String username);
+
+    void addUser(User user);
 }

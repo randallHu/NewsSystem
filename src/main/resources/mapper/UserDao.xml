@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="news.dao.IUserDao">
 
-    <resultMap id="userMap" type="news.model.User">
-            <id property="id" column="id"/>
-            <result property="userName" column="username"/>
-            <result property="pwd" column="password"/>
-            <result property="nickName" column="nickname"/>
-            <result property="email" column="email"/>
+    <resultMap type="news.model.User" id="UserMap">
+        <result property="userName" column="username"/>
+        <result property="pwd" column="password"/>
+        <result property="id" column="id" />
+        <result property="nickName" column="nickname" />
+        <result property="email" column="email" />
     </resultMap>
 
-    <select id="selectUserById" resultMap="userMap" >
-        select * from user where ID = #{id}
+
+    <!--selectbyId-->
+    <select id="selectUserById" resultMap="UserMap">
+        select
+          username, password, id, nickName, email
+        from user
+        where id = #{id}
     </select>
 
-    <select id="selectUserByUserName" resultMap="userMap" >
-        select *
-        FROM user
+    <!--selectbyusername-->
+    <select id="selectUserByUserName" resultMap="UserMap">
+        select
+        id ,username,password,nickName,email
+        from user
         where username = #{username}
     </select>
+
+
+    <!--selectAll-->
+    <select id="selectUserAll" resultType="news.model.User">
+        select *
+        from user
+    </select>
+
+
+
+    <insert id="addUser" keyProperty="id" useGeneratedKeys="true">
+        insert into news.user(username, password, nickName)
+        values (#{userName}, #{pwd}, #{nickName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update news.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickName = #{nickname},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from news.user where ID = #{id}
+    </delete>
 
 </mapper>
